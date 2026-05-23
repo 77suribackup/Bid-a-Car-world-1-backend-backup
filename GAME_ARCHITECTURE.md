@@ -47,9 +47,9 @@ Place on Plot → Generate Income → Rebirth → Unlock World 2
 ## 🎬 GAME FLOW & PLAYER JOURNEY
 
 ```
-┌────────────────────────────────────────────────────────────────────┐
+┌─────────────────────────────────────────────────────────────────┐
 │                    GAME START (New Player)                       │
-└─────────────────────────────┬──────────────────────────────────────┘
+└─────────────────────────────┬───────────────────────────────────┘
                               │
                               ▼
                     ┌──────────────────┐
@@ -998,30 +998,58 @@ end
 │  BLACK LOCKERS (8 hours)            │
 │  ┌───────────────────────────┐     │
 │  │ 🔒 Black Locker #1       │     │
-│  │ Opens in: 2h 45m 12s     │     │
+│  │ Opens in: 3h 45m         │     │
 │  │ [OPEN - LOCKED]          │     │
 │  └───────────────────────────┘     │
 │                                     │
 └─────────────────────────────────────┘
 ```
 
-### 6. REBIRTH CONFIRMATION
+### 6. INVENTORY - ITEMS TAB
 ```
-┌────────────────────────────────────┐
-│       🎊 REBIRTH UNLOCKED! 🎊       │
-├────────────────────────────────────┤
-│                                    │
-│  You have $2000!                   │
-│                                    │
-│  Rebirth Benefits:                 │
-│  ✓ +1 Conveyor (4 total)           │
-│  ✓ +2 Luck Boosts (+20%)           │
-│  ⚠ Money reset to $0               │
-│  ✓ Keep all items & cars           │
-│                                    │
-│  [CONFIRM REBIRTH] [CANCEL]        │
-│                                    │
-└──────���─────────────────────────────┘
+┌──────────────────────────────────────┐
+│  INVENTORY - [ITEMS] [Cars] [Locker] │
+├──────────────────────────────────────┤
+│                                      │
+│  DECORATIONS                         │
+│  ┌───┐ ┌───┐ ┌───┐ ┌───┐           │
+│  │ V │ │ P │ │ L │ │ S │           │
+│  │ A │ │ L │ │ A │ │ T │           │
+│  │$20│ │$20│ │$20│ │$20│           │
+│  └───┘ └───┘ └───┘ └───┘           │
+│                                      │
+│  POTIONS                             │
+│  ┌──────────────┐                   │
+│  │ Luck Boost   │                   │
+│  │ Silver x2    │                   │
+│  │ [USE]        │                   │
+│  └──────────────┘                   │
+│                                      │
+│  DICE                                │
+│  ┌──────────────┐                   │
+│  │ Basic Dice   │                   │
+│  │ x1 unopened  │                   │
+│  │ [OPEN]       │                   │
+│  └──────────────┘                   │
+│                                      │
+└──────────────────────────────────────┘
+```
+
+### 7. LOCKER OPENING - REWARD MODAL
+```
+┌──────────────────────────────────┐
+│    🎉 LOCKER OPENED! 🎉         │
+├──────────────────────────────────┤
+│                                  │
+│       YOU RECEIVED:              │
+│                                  │
+│   ✓ Golden Dice x1               │
+│   ✓ Luck Boost Potion x1         │
+���   ✓ Luck Boost Potion x1         │
+│                                  │
+│           [COLLECT]              │
+│                                  │
+└──────────────────────────────────┘
 ```
 
 ---
@@ -1029,288 +1057,190 @@ end
 ## 📁 FOLDER STRUCTURE
 
 ```
-ServerScriptService/
-├── Managers/
-│   ├── DataStoreManager.lua
-│   ├── PlayerDataManager.lua
-│   ├── BidEngine.lua
-│   ├── NPCBidController.lua
-│   ├── RNGGarageGenerator.lua
-│   ├── InventoryManager.lua
-│   ├── PlotManager.lua
-│   ├── IncomeGenerator.lua
-│   ├── RebirthManager.lua
-│   ├── ShopManager.lua
-│   ├── DiceRNG.lua
-│   ├── TradeManager.lua
-│   ├── TeleportManager.lua
-│   └── ItemDatabase.lua
+Workspace/
+├── Camera
+├── Terrain
+├── Conveyor Central
+│   └── Conveyors (x6 physical tents on map)
+│       ├── Conveyor 1 (Part with script)
+│       ├── Conveyor 2
+│       ├── ...
+│       └── Conveyor 6
 │
-├── Events/
-│   ├── PlayerJoinedEvent.lua
-│   ├── PlayerLeftEvent.lua
-│   └── RoundTickEvent.lua
+├── Events (Teleport button to events)
+├── FencesG (Map decoration)
+├── Folder (Generic folder)
+├── Decorations (Item models)
+│   ├── Vase
+│   ├── Plant
+│   ├── Lamp
+│   └── ...
 │
-├── Utilities/
-│   ├── Logging.lua
-│   ├── TableUtils.lua
-│   ├── MathUtils.lua
-│   └── ErrorHandler.lua
+├── Map (Main world)
+│   ├── Spawn Area
+│   ├── Lobby
+│   ├── Garages
+│   └── Merchant Area
 │
-└── Init.lua (Loads everything on startup)
-
-StarterPlayer/
-├── StarterCharacterScripts/
-│   └── CharacterLoader.lua
+├── Bid a Car (World 1) (Main container)
+├── Lockers (Physical locker objects on map x3)
+│   ├── Locker 1 (Part with interact script)
+│   ├── Locker 2
+│   └── Locker 3
 │
-└── StarterPlayerScripts/
-    ├── UILoader.lua
-    ├── InputHandler.lua
-    └── LocalManager.lua
-
-StarterGui/
-├── MainLobby/
-│   ├── MainLobbyUI.lua
-│   ├── InventoryUI.lua
-│   └── WalletDisplay.lua
+├── GarageRNG (RNG Garage template for bids)
+│   ├── Ground
+│   ├── Display (Car & decoration spawn points)
+│   └── Exit (Teleport back button)
 │
-├── BidUI/
-│   ├── BidUIController.lua
-│   ├── TierSelectionUI.lua
-│   └── CountdownTimer.lua
+├── Garages (Storage for garage variants)
+│   ├── Garage200 (BEGINNER template)
+│   ├── Garage500 (ADVANCED template)
+│   ├── Garage1200 (EXPERT template)
+│   └── Garage2500 (CHOSEN template)
 │
-├── ShopUI/
-│   ├── DiceShopUI.lua
-│   └── DicePurchase.lua
+├── Merchant (NPC shop area)
+│   ├── NPC_Merchant (Character model)
+│   └── ShopArea
 │
-├── InventoryUI/
-│   ├── ItemsTab.lua
-│   ├── CarsTab.lua
-│   ├── LockerTab.lua
-│   └── IndexTab.lua
+├── NPCS (AI Bidders)
+│   ├── BotBidder1 (Humanoid, no name above head initially)
+│   ├── BotBidder2
+│   ├── BotBidder3
+│   ├── BotBidder4
+│   ├── BotBidder5
+│   ├── BotBidder6
+│   └── (More as needed)
 │
-├── TradeUI/
-│   ├── TradeWindow.lua
-│   └── TradeConfirmation.lua
+├── ShopNpc (Shop NPC display area)
 │
-└── NotificationCenter/
-    └── NotificationUI.lua
+├── SpawnLocation (Player spawn)
+│
+├── Players (Cloned on join)
+│   └── [PlayerName]
+│       └── PlayerGui (UI elements)
+│
+├── StarterGui
+│   ├── ScreenGui (Main container)
+│   ├── TierSelectionGui
+│   ├── BidGui
+│   ├── InventoryGui
+│   ├── RebirthGui
+│   ├── TradeGui
+│   ├── PlotGui
+│   └── ShopGui
+│
+├── StarterPack (Tools given at spawn)
+│
+├── StarterPlayer (Character templates)
+│
+├── Lighting
+├── MaterialService
+├── NetworkClient
+├── ReplicatedFirst
+├── ReplicatedStorage
+│   ├── Modules
+│   │   ├── DataStoreManager
+│   │   ├── PlayerDataManager
+│   │   ├── BidEngine
+│   │   ├── NPCBidController
+│   │   ├── RNGGarageGenerator
+│   │   ├── InventoryManager
+│   │   ├── PlotManager
+│   │   ├── IncomeGenerator
+│   │   ├── RebirthManager
+│   │   ├── ShopManager
+│   │   ├── DiceRNG
+│   │   ├── TradeManager
+│   │   ├── UIManager
+│   │   ├── TeleportManager
+│   │   ├── ItemDatabase
+│   │   └── Config
+│   │
+│   ├── Assets
+│   │   ├── CarModels
+│   │   │   ├── Common (x1-x4)
+│   │   │   ├── Uncommon (x5-x8)
+│   │   │   ├── Rare
+│   │   │   ├── Epic
+│   │   │   ├── Legendary
+│   │   │   └── SPEC
+│   │   │
+│   │   ├── Decorations
+│   │   │   ├── Vase
+│   │   │   ├── Plant
+│   │   │   └── ...
+│   │   │
+│   │   └── UI Images
+│   │       ├── CarImages (no background)
+│   │       ├── Icons
+│   │       └── Buttons
+│   │
+│   └── Events
+│       ├── OnPlayerJoin
+│       ├── OnPlayerLeave
+│       ├── OnBidStart
+│       └── OnMoneyChanged
+│
+├── ServerScriptService
+│   ├── Main (Initializes everything)
+│   └── PlayerJoinHandler
+│
+├── ServerStorage
+│   ├── CarDatabase (All car models)
+│   ├── DecorationDatabase
+│   ├── NPCDatabase
+│   └── Templates
+│
+├── SoundService
+├── TextChatService
+└── Teams
 ```
 
 ---
 
-## 🔧 SCRIPT BREAKDOWN
+## ✅ CHECKLIST FOR IMPLEMENTATION
 
-### **Managers/** (Backend Logic)
-These are the "brains" of the game - they handle all the business logic.
+### Phase 1: Core Infrastructure
+- [ ] DataStoreManager (Save/Load)
+- [ ] PlayerDataManager (In-memory state)
+- [ ] UIManager (Basic screens)
+- [ ] TeleportManager (Movement)
 
-1. **DataStoreManager.lua** (350 lines)
-   - Auto-save/load player data
-   - Error handling for DataStore failures
-   - Versioning system for data migration
+### Phase 2: Bid System
+- [ ] BidEngine (State machine)
+- [ ] NPCBidController (AI)
+- [ ] RNGGarageGenerator (Garage creation)
+- [ ] BidUI (Modern interface)
 
-2. **PlayerDataManager.lua** (400 lines)
-   - In-memory player state
-   - Fast access to player info
-   - Cache management
+### Phase 3: Inventory & Items
+- [ ] InventoryManager (Item tracking)
+- [ ] ItemDatabase (All item definitions)
+- [ ] InventoryUI (4 tabs)
+- [ ] Locker system (Time-locked containers)
 
-3. **BidEngine.lua** (500 lines)
-   - Bid battle orchestration
-   - State machine (WAITING → BIDDING → SETTLING → COMPLETED)
-   - Winner calculation
-   - Loser penalty handling
+### Phase 4: Plot & Income
+- [ ] PlotManager (Conveyor system)
+- [ ] IncomeGenerator (Passive money)
+- [ ] Physical plot visualization
 
-4. **NPCBidController.lua** (200 lines)
-   - Bot AI logic
-   - Bid generation
-   - Stop point calculation
+### Phase 5: Progression
+- [ ] RebirthManager (Milestone system)
+- [ ] ShopManager (Dice shop)
+- [ ] DiceRNG (NPC generation)
 
-5. **RNGGarageGenerator.lua** (300 lines)
-   - Garage generation
-   - Rarity weighting
-   - Loot tables
+### Phase 6: Trading
+- [ ] TradeManager (P2P trading)
+- [ ] TradeUI (Modern interface)
 
-6. **InventoryManager.lua** (400 lines)
-   - Item CRUD operations
-   - Tabs management
-   - Item constraints
-
-7. **PlotManager.lua** (350 lines)
-   - Conveyor placement
-   - Car/NPC placement
-   - Income calculation
-
-8. **IncomeGenerator.lua** (200 lines)
-   - Offline income calculation
-   - Accumulated income tracking
-   - Collection logic
-
-9. **RebirthManager.lua** (250 lines)
-   - Rebirth threshold checks
-   - Feature unlocking
-   - Data reset logic
-
-10. **ShopManager.lua** (150 lines)
-    - Dice availability
-    - Purchase logic
-    - NPC generation
-
-11. **DiceRNG.lua** (180 lines)
-    - NPC generation algorithm
-    - Rarity distribution
-    - Boost calculation
-
-12. **TradeManager.lua** (300 lines)
-    - Trade initiation
-    - Trade validation
-    - Swap logic
-
-13. **TeleportManager.lua** (200 lines)
-    - Location transitions
-    - Spawn points
-    - Safety checks
-
-14. **ItemDatabase.lua** (250 lines)
-    - All item definitions
-    - Rarity tables
-    - Drop rates
-
-### **Events/** (Server-side Listeners)
-These respond to player actions and game events.
-
-1. **PlayerJoinedEvent.lua** (150 lines)
-   - Load player data
-   - Initialize UI
-   - Spawn player at lobby
-
-2. **PlayerLeftEvent.lua** (100 lines)
-   - Save player data
-   - Cleanup active bids
-   - Cleanup connections
-
-3. **RoundTickEvent.lua** (120 lines)
-   - Auto-save every 2 min
-   - Income tick updates
-   - Expiration checks
-
-### **UI/** (Client-side)
-These are what players see and interact with.
+### Phase 7: Polish
+- [ ] UI animations
+- [ ] Sound effects
+- [ ] Tutorial system
+- [ ] Error handling
 
 ---
 
-## 🎲 BID MECHANICS DEEP DIVE
-
-### **Bidding Phases**
-
-#### Phase 1: Garage Preview (5 seconds)
-- Player joins bid arena
-- Sees garage contents (car + decorations)
-- **Can't bid yet**
-- Info box shows: Garage value, entry fee, expected bids
-
-#### Phase 2: Bidding (0-60 seconds)
-- Player has 2 seconds per bid
-- Bots have 1 second per bid
-- Bids increase minimum 10% each round
-- Countdown visible for player only
-
-#### Phase 3: Settling (5 seconds)
-- Winner determined (highest bid)
-- Loser penalty applied
-- Items distributed
-- Sound effects & animations
-
-#### Phase 4: Collection (player must confirm)
-- Go to inventory
-- Select 0-2 decorations
-- Confirm collection
-- Return to lobby
-
----
-
-## 📦 ITEM SYSTEM
-
-### **Item Types**
-
-1. **Decorations** ($20 each)
-   - Visual items from garages
-   - Can be sold back
-   - Used for garage filling
-
-2. **Potions**
-   - Luck Boosts (20% temp money boost, 1 hour)
-   - Speed Boosts (20% faster income collection, 1 hour)
-   - Auto-sell Potions (auto-sell decorations for 110% value)
-
-3. **Dice** (Locked items that drop NPCs)
-   - Basic Dice (10-30% boost NPC) - $150
-   - Golden Dice (30-50% boost NPC) - $300
-   - Diamond Dice (50-80% boost NPC) - $1100
-   - NA-SPEC Dice (80-120% boost NPC) - $2500
-
-4. **Lockers** (Timed containers)
-   - Silver Lockers (1 hour, 4-8 items)
-   - Gold Lockers (4 hours, 8-15 items)
-   - Black Lockers (8 hours, 15-25 items)
-
-5. **NPCs** (Income boosters)
-   - Generated from dice
-   - Place on conveyors
-   - Boost car income %
-
-6. **Cars** (Income generators)
-   - Generated from bid victories
-   - Different rarities (Common-SPEC)
-   - Place on conveyors
-
----
-
-## 🎯 PROGRESSION & REBIRTHS
-
-### **Rebirth System**
-
-Players reset their money to unlock features:
-
-| Rebirth | Cost | Level | Unlocks |
-|---------|------|-------|---------|
-| 1 | $2,000 | Early | +1 Conveyor (4), +2 Luck Boosts |
-| 2 | $5,000 | Mid | Trade System |
-| 3 | $10,000 | Late | +1 Conveyor (5), World 2 Access |
-
-**Mechanics:**
-- Money → $0 (lose all cash)
-- Keep items, cars, NPCs, lockers
-- Gain new privileges
-- Can rebirth multiple times (no limit)
-
----
-
-## 🚀 MVP ROADMAP
-
-### **Phase 1: Core Loop** (Weeks 1-2)
-- [x] Main Lobby
-- [x] Tier Selection
-- [x] Bid Battle (Player vs 3 Bots)
-- [x] RNG Garage Generation
-- [x] Inventory UI
-- [x] Plot Placement
-- [ ] Income Collection
-
-### **Phase 2: Progression** (Weeks 3-4)
-- [ ] Rebirth System
-- [ ] Offline Income
-- [ ] DataStore Saving
-- [ ] Locker System
-- [ ] Luck Boosts
-
-### **Phase 3: Polish** (Weeks 5-6)
-- [ ] Sound Effects
-- [ ] Animations
-- [ ] UI Polish
-- [ ] Bug Fixes
-- [ ] Performance Optimization
-
----
-
-**Created:** May 19, 2026  
-**Last Updated:** May 23, 2026
+**Schema Version:** 1.0  
+**Last Updated:** May 19, 2026  
+**Status:** Ready for development
